@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Jobs</title>
+    <link rel="stylesheet" href="{% static 'enroll/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class='container-fluid'>
+        
+            <h2 class=" d-flex justify-content-between align-items-center col-sm-10 offset-1 my-3 mt-4 pt-4">Python Developer's
+                <button class="btn btn-primary" onclick="redirectToAdmin()">Admin</button>
+            </h2>
+            
+        
+        
+         {% block content %} {% endblock content %}
+    </div>
+    <script src="{% static 'enroll/js/bootstrap.js' %}"></script>
+    <script src="{% static 'enroll/js/popper.js' %}"></script>
+    <script>
+        function redirectToAdmin() {
+            window.location.href = "{% url 'admin_redirect' %}";
+        }
+    </script>
+</body>
+</html>

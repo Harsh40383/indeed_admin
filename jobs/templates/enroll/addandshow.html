@@ -1,0 +1,55 @@
+{% extends "enroll/base.html" %}
+{% block content %}
+<div class="row">
+    <div class=" alert alert-success col-sm-10 offset-1 my-3">
+        {% if average_salary %}
+        <h5>Average salary of python developer's in Bangalore is INR {{ average_salary }}</h5>
+        {% else %}
+        <p>No salary data available</p>
+    {% endif %}
+    </div>
+    <form class="col-sm-10 offset-1 my-3" method="get" action="{% url 'searchjobs' %}">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search job listings..." name="q">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <div class="col-sm-10 offset-1">
+        {%if job%}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    {% comment %} <th scope="col">ID</th> {% endcomment %}
+                    <th scope="col">Title</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col" style="width: 120px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for jb in job%}
+                <tr>
+                    {% comment %} <th scope="row">{{jb.id}}</th> {% endcomment %}
+                    <td >{{jb.title}}</td>
+                    <td>{{jb.company}}</td>
+                    <td>{{jb.location}}</td>
+                    <td>{{jb.salary}}</td>
+                    <td><a href="{% url 'updatedata' jb.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'deletedata' jb.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {%else%}
+        <h4 class="text-center alert alert-warning">No Records</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
